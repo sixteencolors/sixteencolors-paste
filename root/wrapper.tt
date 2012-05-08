@@ -178,6 +178,10 @@ h1 a {
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
 <style type="text/css">
 @media (max-width: 979px) {
+    #main {
+        margin-top: 0;
+    }
+
     h1 {
         width: auto;
         font-size: 100%;
