@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sixteen Colors - Paste</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.css"rel="stylesheet">
+    <style>
+@font-face {
+    font-family: '8x16';
+    src: url('/static/font/8x16.eot'); /* IE9 Compat Modes */
+    src: url('/static/font/8x16.eot?iefix') format('eot'), /* IE6-IE8 */ url('/static/font/8x16.woff') format('woff'), /* Modern Browsers */ url('/static/font/8x16.ttf')  format('truetype'), /* Safari, Android, iOS */ url('/static/font/8x16.svg#webfontpVS4iJcr') format('svg'); /* Legacy iOS */
+    font-weight: normal;
+    font-style: normal;
+}
+
+#parallaxwrap {
+    position: relative;
+    top: -26px;
+}
+
+.parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 264px;
+    background-repeat: repeat-x;
+    background-position: top left;
+}
+
+#parallax1 {
+    z-index: -3;
+    background-image: url('/static/img/body-bg-1.png')
+}
+
+#parallax2 {
+    z-index: -2;
+    background-image: url('/static/img/body-bg-2.png')
+}
+
+#parallax3 {
+    z-index: -1;
+    background-image: url('/static/img/body-bg-3.png')
+}
+
+body, .navbar-search .search-query, .btn, p {
+    font-family: '8x16';
+    font-size: 100%;
+}
+
+
+h1, h2, h3, h4, label {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+.navbar-search {
+    margin: 8px 0 0 0;
+}
+
+.navbar-search .search-query {
+    width: 232px;
+    line-height: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.nav-collapse.in .search-query {
+    width: 50%;
+}
+
+#top .navbar-inner {
+    padding-right: 0;
+    padding-left: 0;
+    background-color: #000;
+    background-image: none;  
+    min-height: 40px;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+
+#main {
+    min-height: 200px;
+    margin-top: 120px;
+}
+
+.dropdown-menu, #top .navbar-inner, .btn, .search-query, .carousel-control {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+}
+
+.navbar .nav > li > a {
+    padding: 12px 8px;
+    line-height: 16px;
+    color: #0aa;
+}
+
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    color: #ff5;
+    background: transparent;
+}
+
+li {
+    line-height: 16px;
+}
+
+.dropdown-menu {
+    background: #0aa;
+}
+
+.dropdown .caret {
+    margin-top: 6px;
+}
+
+.navbar .dropdown-menu::after {
+    border-bottom: 6px solid #0aa;
+}
+
+.dropdown-menu a {
+    color: #000;
+}
+
+.dropdown-menu li > a:hover,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+    background: #fff;
+    color: #0aa;
+}
+
+h1 {
+    width: 279px;
+    position: absolute;
+}
+
+h1 a {
+    text-indent: -9000px;
+    display: block;
+    height: 152px;
+    background: url('static/img/logo.png') no-repeat top left;
+}
+
+#mainnav {
+    margin-left: 184px;
+}
+
+.navbar-search .search-query:focus, .navbar-search .search-query.focused {
+    padding: 4px 9px;
+}
+
+.navbar .btn {
+    line-height: 16px;
+    height: 24px;
+    margin: 0;
+}
+
+#footer {
+    background: url(/static/img/footer-bg.png) no-repeat bottom right;
+    height: 384px;
+}
+
+#footer h2 {
+    line-height: 16px;
+    margin-bottom: 8px;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+    </style>
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+<style type="text/css">
+@media (max-width: 979px) {
+    h1 {
+        width: auto;
+        font-size: 100%;
+        line-height: 40px;
+    }
+
+    h1 a {
+        margin-left: 8px;
+        text-indent: 0;
+        height: auto;
+        background: transparent;
+    }
+
+    #mainnav {
+        margin-left: 0;
+    }
+
+    .nav-collapse #mainnav {
+        border-top: 1px solid #222;
+    }
+
+    .navbar .btn-navbar {
+        background: #000;
+        padding: 14px 8px;
+        maring: 0;
+        height: 10px;
+    }
+
+    h1, .nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+        font-weight: normal;
+    }
+
+    .nav-collapse .btn, .nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+        -webkit-border-radius: 0;
+           -moz-border-radius: 0;
+                border-radius: 0;
+    }
+
+    #footer {
+        background: transparent;
+    }
+ 
+    body {
+        background: url(/static/img/footer-bg.png) no-repeat bottom right;
+    }   
+
+}
+
+@media (max-width: 767px) {
+    #top.navbar, #parallaxwrap {
+        margin-right: -20px;
+        margin-left: -20px
+    }
+
+    #footer {
+        height: auto;
+    }
+
+    body {
+        background: transparent;
+        margin-bottom: 8px;
+    }
+}
+
+</style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/favicon.ico">
+[% IF url %]
+    <meta http-equiv="refresh" content="5; url=[% url %]">
+[% END %]
+  </head>
+
+  <body>
+
+    <div class="navbar" id=top>
+      <div class="navbar-inner">
+        <div class="container" style="position: relative;">
+	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </a>
+          <h1><a href="http://sixteencolors.net/">Sixteen Colors</a></h1>
+          <div class="nav-collapse">
+              <ul class="nav pull-right">
+                <li><a href="/"><i class="icon-home"></i> Paste Home</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id=parallaxwrap></div>
+
+    <div class="container well" id=main>
+[% content %]
+    </div>
+
+    <div class="container" id=footer>
+        <div class="row">
+            <div class="span3">
+                <p>(c) 2004 - 2012<br/>Sixteen Colors</p>
+                <p>Artwork by enzO [<a href="http://blocktronics.net/">b7</a>]</p>
+            </div>
+            <div class=span3>
+                <h2>Feeds</h2>
+                <ul>
+                    <li class=icon-download><a href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News">Sixteen Colors News</a></li>
+<!--                    <li class=icon-download><a href="#">Latest Artpacks</a></li> -->
+                </ul>
+                <h2>Development</h2>
+                <ul>
+                    <li class=icon-github-sign><a href="http://github.com/sixteencolors">Github</a></li>
+                    <li class=icon-cogs><a href="http://api.sixteencolors.net/">Sixteen Colors API</a></li>
+                </ul>
+            </div>
+            <div class=span3>
+                <h2>Connect</h2>
+                <ul>
+                    <li class=icon-twitter-sign><a href="http://twitter.com/sixteencolors">Twitter</a></li>
+                    <li class=icon-facebook-sign><a href="http://facebook.com/sixteencolors">Facebook</a></li>
+                    <li class=icon-envelope><a href="mailto:contact@sixteencolors.net">Email</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/jquery.backgroundPosition.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+$( document ).ready( function() {
+    // Parallax scrolling header
+    for ( var i = 3; i >= 1; i-- ) {
+        var p = $( '<div class=parallax id=parallax' + i + '></div>' );
+        p.data( 'scrollPosition', 0 );
+        p.data( 'scrollSpeed', 30 * i );
+        $( '#parallaxwrap' ).prepend( p );
+    }
+
+    var parallax = $( '.parallax' );
+
+    $( 'h1' ).mouseover( function() {
+        parallax.each( function() {
+            var p = $(this);
+            p.data( 'scrollID', setInterval( function() {
+                var pos = p.data( 'scrollPosition' ) - 1;
+                p.css( 'backgroundPosition', pos + 'px 0' );
+                p.data( 'scrollPosition', pos );
+                if( p.attr( 'id' ) == 'parallax1' ) {
+                    p.css( 'top', 8 * Math.sin( pos / 16 ) );
+                }
+            }, p.data( 'scrollSpeed' ) ) );
+        } );
+    } )
+    .mouseout( function() {
+        parallax.each( function() {
+            clearInterval( $( this ).data( 'scrollID') );
+        } );
+    } );
+} );
+    </script>
+  </body>
+</html>
+

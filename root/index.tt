@@ -1,0 +1,9 @@
+<form class="form-vertical" method="post" enctype="multipart/form-data">
+  <div class="control-group">
+      <label class="control-label" for="file">Upload a file</label>
+      <div class="controls">
+        <input type="file" name=file id="file">
+      </div>
+  </div>
+  <button type="submit" class="btn">Submit</button>
+</form>
