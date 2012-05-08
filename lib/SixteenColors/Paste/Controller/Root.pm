@@ -7,6 +7,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use Data::UUID::Base64URLSafe ();
 use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
+use HTML::FillInForm;
 
 __PACKAGE__->config(namespace => '');
 
@@ -53,16 +54,20 @@ sub instance :Chained('/') PathPart('') CaptureArgs(1) {
 
 sub view :Chained('instance') PathPart('') Args(0) {
     my ( $self, $c) = @_;
+    $c->stash( fillform => 1 );
 }
 
 sub render :Chained('instance') PathPart('render') Args(0) {
     my ( $self, $c ) = @_;
 
+    my $opts      = $c->req->params;
+    my $read_opts = { width => delete $opts->{ width } };
+
     my $file   = $c->stash->{ file };
-    my $img    = Image::TextMode::Loader->load( "$file" );
+    my $img    = Image::TextMode::Loader->load( [ "$file", $read_opts ] );
     my $render = Image::TextMode::Renderer::GD->new;
 
-    $c->res->body( $render->fullscale( $img ) );
+    $c->res->body( $render->fullscale( $img, $opts ) );
     $c->res->content_type( 'image/png' );
 }
 
@@ -72,7 +77,13 @@ sub default :Path {
     $c->response->status(404);
 }
 
-sub end : ActionClass('RenderView') {}
+sub end : Private {
+    my ( $self, $c ) = @_;
+    $c->forward( 'render_view' );
+    $c->fillform( $c->req->params ) if $c->stash->{ fillform };
+}
+
+sub render_view : ActionClass('RenderView') { }
 
 __PACKAGE__->meta->make_immutable;
 

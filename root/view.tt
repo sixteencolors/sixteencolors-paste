@@ -1,3 +1,65 @@
-<div style="text-align: center;">
-<img src="[% c.uri_for( '/', id, 'render' ) %]">
+<ul class="nav nav-tabs">
+  <li class=active><a href="#view" data-toggle="tab">View</a></li>
+  <li><a href="#opts" data-toggle="tab">Options</a></li>
+</ul>
+<div class=tab-content>
+    <div style="text-align: center;" class="tab-pane fade in active" id=view>
+        <img src="[% c.uri_for( '/', id, 'render' ) %]?[% c.req.uri.query %]">
+    </div>
+    <div class="tab-pane fade in" id=opts>
+        <form class="form-horizontal" action="">
+          <div class="control-group">
+              <label class="control-label" for="width">Width</label>
+              <div class="controls">
+                <input type="text" name=width id="width">
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="font">Font</label>
+              <div class="controls">
+                <select name=font id=font>
+                    <option></option>
+                    <option>8x16</option>
+                    <option>8x8</option>
+                    <option>Amiga</option>
+                </select>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="palette">Palette</label>
+              <div class="controls">
+                <select name=palette id=palette>
+                    <option></option>
+                    <option>ANSI</option>
+                    <option>VGA</option>
+                </select>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="blink_mode">Blink Mode</label>
+              <div class="controls">
+                <input type="checkbox" name=blink_mode id="blink_mode">
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="9th_bit">9th Bit</label>
+              <div class="controls">
+                <input type="checkbox" name=9th_bit id="9th_bit">
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="dos_aspect">DOS Aspect</label>
+              <div class="controls">
+                <input type="checkbox" name=dos_aspect id="dos_aspect">
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="ced">CED Mode</label>
+              <div class="controls">
+                <input type="checkbox" name=ced id="ced">
+              </div>
+          </div>
+          <button type="submit" class="btn">Render</button>
+        </form>
+    </div>
 </div>
