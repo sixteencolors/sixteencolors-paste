@@ -84,6 +84,7 @@ sub render : Chained('instance') PathPart('render') Args(0) {
     my $render = Image::TextMode::Renderer::GD->new;
 
     if( delete $opts->{ thumbnail } ) {
+        $opts->{ zoom } = 3;
         $c->res->body( $render->thumbnail( $img, $opts ) );
     }
     else {
