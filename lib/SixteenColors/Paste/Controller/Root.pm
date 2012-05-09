@@ -8,63 +8,64 @@ use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
 use HTML::FillInForm;
 
-__PACKAGE__->config(namespace => '');
+__PACKAGE__->config( namespace => '' );
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    if( lc( $c->req->method ) eq 'post' && $c->req->params->{ file } ) {
+    if ( lc( $c->req->method ) eq 'post' && $c->req->params->{ file } ) {
         my $paste = $c->model( 'DB::Paste' )->create( {} );
         my $id = $paste->url_fragment;
 
         my $upload = $c->req->upload( 'file' );
-        my( $ext ) = $upload->basename =~ m{\.([^.]+)$};
+        my ( $ext ) = $upload->basename =~ m{\.([^.]+)$};
         $ext = lc( $ext );
 
         $upload->copy_to( $c->path_to( "root/static/paste/${id}.${ext}" ) );
 
         $c->stash(
-            id => $id,
+            id       => $id,
             template => 'uploaded.tt',
-            url => $c->uri_for( '/', $id ),
+            url      => $c->uri_for( '/', $id ),
         );
         return;
     }
 }
 
-sub instance :Chained('/') PathPart('') CaptureArgs(1) {
+sub instance : Chained('/') PathPart('') CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
-    my $paste = $c->model( 'DB::Paste' )->find( { url_fragment => $id }, { key => 'paste_url_fragment' } );
+    my $paste = $c->model( 'DB::Paste' )
+        ->find( { url_fragment => $id }, { key => 'paste_url_fragment' } );
 
-    if( !$paste ) {
+    if ( !$paste ) {
         $c->response->body( 'Page not found' );
-        $c->response->status(404);
+        $c->response->status( 404 );
         return;
     }
 
     my $dir = Path::Class::Dir->new( $c->path_to( "root/static/paste/" ) );
     my $file;
-    while( $file = $dir->next ) {
+    while ( $file = $dir->next ) {
         last if $file->basename =~ m{^$id\.};
     }
 
     $c->stash(
-        id => $id,
-        file => $file,
+        id    => $id,
+        file  => $file,
         paste => $paste
     );
 }
 
-sub view :Chained('instance') PathPart('') Args(0) {
-    my ( $self, $c) = @_;
+sub view : Chained('instance') PathPart('') Args(0) {
+    my ( $self, $c ) = @_;
     $c->stash( fillform => 1 );
 }
 
-sub render :Chained('instance') PathPart('render') Args(0) {
+sub render : Chained('instance') PathPart('render') Args(0) {
     my ( $self, $c ) = @_;
 
-    my $opts      = $c->req->params;
+    my $opts = $c->req->params;
     my $read_opts = { width => delete $opts->{ width } };
 
     my $file   = $c->stash->{ file };
@@ -75,10 +76,10 @@ sub render :Chained('instance') PathPart('render') Args(0) {
     $c->res->content_type( 'image/png' );
 }
 
-sub default :Path {
+sub default : Path {
     my ( $self, $c ) = @_;
     $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    $c->response->status( 404 );
 }
 
 sub end : Private {
@@ -87,7 +88,8 @@ sub end : Private {
     $c->fillform( $c->req->params ) if $c->stash->{ fillform };
 }
 
-sub render_view : ActionClass('RenderView') { }
+sub render_view : ActionClass('RenderView') {
+}
 
 __PACKAGE__->meta->make_immutable;
 

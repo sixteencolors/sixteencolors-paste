@@ -32,7 +32,8 @@ __PACKAGE__->add_unique_constraint( [ 'url_fragment' ] );
 sub insert {
     my ( $self, @args ) = @_;
     $self->next::method( @args );
-    $self->update( { url_fragment => Encode::Base58::encode_base58( $self->id ) } );
+    $self->update(
+        { url_fragment => Encode::Base58::encode_base58( $self->id ) } );
     return $self;
 }
 
