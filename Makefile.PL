@@ -16,7 +16,9 @@ requires 'Catalyst::Action::RenderView';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'Config::General';
-requires 'Data::UUID::Base64URLSafe';
+requires 'DBIx::Class';
+requires 'Catalyst::Model::DBIC::Schema';
+requires 'Encode::Base58';
 requires 'Image::TextMode';
 requires 'HTML::FillInForm';
 

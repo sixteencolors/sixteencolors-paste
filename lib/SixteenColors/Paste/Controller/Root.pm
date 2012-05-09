@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller' }
 
-use Data::UUID::Base64URLSafe ();
 use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
 use HTML::FillInForm;
@@ -15,8 +14,8 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     if( lc( $c->req->method ) eq 'post' && $c->req->params->{ file } ) {
-        my $ug = Data::UUID::Base64URLSafe->new;
-        my $id = $ug->create_b64_urlsafe;
+        my $paste = $c->model( 'DB::Paste' )->create( {} );
+        my $id = $paste->url_fragment;
 
         my $upload = $c->req->upload( 'file' );
         my( $ext ) = $upload->basename =~ m{\.([^.]+)$};
@@ -36,20 +35,25 @@ sub index :Path :Args(0) {
 sub instance :Chained('/') PathPart('') CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
-    my $dir = Path::Class::Dir->new( $c->path_to( "root/static/paste/" ) );
-    my $file;
+    my $paste = $c->model( 'DB::Paste' )->find( { url_fragment => $id }, { key => 'paste_url_fragment' } );
 
-    while( $file = $dir->next ) {
-        last if $file->basename =~ m{^$id\.};
-    }
-
-    if( !$file ) {
+    if( !$paste ) {
         $c->response->body( 'Page not found' );
         $c->response->status(404);
         return;
     }
 
-    $c->stash( id => $id, file => $file );
+    my $dir = Path::Class::Dir->new( $c->path_to( "root/static/paste/" ) );
+    my $file;
+    while( $file = $dir->next ) {
+        last if $file->basename =~ m{^$id\.};
+    }
+
+    $c->stash(
+        id => $id,
+        file => $file,
+        paste => $paste
+    );
 }
 
 sub view :Chained('instance') PathPart('') Args(0) {
