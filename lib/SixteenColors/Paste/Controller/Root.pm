@@ -59,6 +59,7 @@ sub instance : Chained('/') PathPart('') CaptureArgs(1) {
 
 sub view : Chained('instance') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
+    return unless $c->stash->{ paste };
     $c->stash->{ paste }->update( { views => $c->stash->{ paste }->views + 1 } );
     $c->stash( fillform => 1 );
 }
