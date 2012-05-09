@@ -72,7 +72,13 @@ sub render : Chained('instance') PathPart('render') Args(0) {
     my $img    = Image::TextMode::Loader->load( [ "$file", $read_opts ] );
     my $render = Image::TextMode::Renderer::GD->new;
 
-    $c->res->body( $render->fullscale( $img, $opts ) );
+    if( delete $opts->{ thumbnail } ) {
+        $c->res->body( $render->thumbnail( $img, $opts ) );
+    }
+    else {
+        $c->res->body( $render->fullscale( $img, $opts ) );
+    }
+
     $c->res->content_type( 'image/png' );
 }
 

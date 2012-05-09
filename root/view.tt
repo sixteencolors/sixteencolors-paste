@@ -5,6 +5,7 @@
 <div class=tab-content>
     <div style="text-align: center;" class="tab-pane fade in active" id=view>
         <img src="[% c.uri_for( '/', id, 'render' ) %]?[% c.req.uri.query %]">
+        <img id=thumb src="[% c.uri_for( '/', id, 'render' ) %]?thumbnail=on&amp;[% c.req.uri.query %]">
     </div>
     <div class="tab-pane fade in" id=opts>
         <form class="form-horizontal" action="">
