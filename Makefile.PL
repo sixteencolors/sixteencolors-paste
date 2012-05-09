@@ -21,6 +21,7 @@ requires 'Catalyst::Model::DBIC::Schema';
 requires 'Encode::Base58';
 requires 'Image::TextMode';
 requires 'HTML::FillInForm';
+requires 'Number::Bytes::Human';
 
 test_requires 'Test::More' => '0.88';
 catalyst;

@@ -6,6 +6,7 @@ use warnings;
 use parent qw( DBIx::Class );
 
 use Encode::Base58 ();
+use Number::Bytes::Human ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'paste' );
@@ -19,6 +20,26 @@ __PACKAGE__->add_columns(
         data_type   => 'varchar',
         size        => 256,
         is_nullable => 1,
+    },
+    filename => {
+        data_type   => 'varchar',
+        size        => 256,
+        is_nullable => 0,
+    },
+    filesize => {
+        data_type     => 'bigint',
+        is_nullable   => 0,
+        default_value => 0,
+    },
+    title => {
+        data_type   => 'varchar',
+        size        => 256,
+        is_nullable => 1,
+    },
+    views => {
+        data_type     => 'bigint',
+        is_nullable   => 0,
+        default_value => 0,
     },
     ctime => {
         data_type     => 'timestamp',
@@ -35,6 +56,17 @@ sub insert {
     $self->update(
         { url_fragment => Encode::Base58::encode_base58( $self->id ) } );
     return $self;
+}
+
+sub filename_ext {
+    my $self = shift;
+    my ( $ext ) = $self->filename =~ m{\.([^.]+)$};
+    return $ext;
+}
+
+sub filesize_text {
+    my $self = shift;
+    return  Number::Bytes::Human::format_bytes( $self->filesize );
 }
 
 1;

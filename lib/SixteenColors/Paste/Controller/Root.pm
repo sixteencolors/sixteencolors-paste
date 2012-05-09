@@ -14,12 +14,15 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     if ( lc( $c->req->method ) eq 'post' && $c->req->params->{ file } ) {
-        my $paste = $c->model( 'DB::Paste' )->create( {} );
-        my $id = $paste->url_fragment;
-
         my $upload = $c->req->upload( 'file' );
-        my ( $ext ) = $upload->basename =~ m{\.([^.]+)$};
-        $ext = lc( $ext );
+
+        my $paste = $c->model( 'DB::Paste' )->create( {
+            filename => $upload->basename,
+            filesize => $upload->size,
+            title    => $c->req->params->{ title },
+        } );
+        my $id = $paste->url_fragment;
+        my $ext = $paste->filename_ext;
 
         $upload->copy_to( $c->path_to( "root/static/paste/${id}.${ext}" ) );
 
@@ -44,11 +47,8 @@ sub instance : Chained('/') PathPart('') CaptureArgs(1) {
         return;
     }
 
-    my $dir = Path::Class::Dir->new( $c->path_to( "root/static/paste/" ) );
-    my $file;
-    while ( $file = $dir->next ) {
-        last if $file->basename =~ m{^$id\.};
-    }
+    my $ext  = $paste->filename_ext;
+    my $file = $c->path_to( "root/static/paste/$id.$ext" ) ;
 
     $c->stash(
         id    => $id,
@@ -59,7 +59,17 @@ sub instance : Chained('/') PathPart('') CaptureArgs(1) {
 
 sub view : Chained('instance') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
+    $c->stash->{ paste }->update( { views => $c->stash->{ paste }->views + 1 } );
     $c->stash( fillform => 1 );
+}
+
+sub download : Chained('instance') PathPart('download') Args(0) {
+    my ( $self, $c ) = @_;
+    my $paste = $c->stash->{ paste };
+    my $filename = $paste->filename;
+
+    $c->res->header('Content-Disposition', qq(attachment; filename="$filename") );
+    $c->res->body( $c->stash->{ file }->open );
 }
 
 sub render : Chained('instance') PathPart('render') Args(0) {
