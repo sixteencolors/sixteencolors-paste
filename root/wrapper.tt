@@ -20,6 +20,11 @@
     font-style: normal;
 }
 
+#pastelogo img {
+    margin-left: 296px;
+    margin-bottom: 28px;
+}
+
 #parallaxwrap {
     position: relative;
     top: -26px;
@@ -89,7 +94,6 @@ h1, h2, h3, h4, label {
 
 #main {
     min-height: 200px;
-    margin-top: 120px;
 }
 
 .dropdown-menu, #top .navbar-inner, .btn, .search-query, .carousel-control {
@@ -182,8 +186,9 @@ h1 a {
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
 <style type="text/css">
 @media (max-width: 979px) {
-    #main {
-        margin-top: 0;
+    #pastelogo img {
+        margin: 0;
+        margin-bottom: 8px;
     }
 
     h1 {
@@ -283,6 +288,10 @@ h1 a {
     </div>
 
     <div id=parallaxwrap></div>
+
+    <div class=container id=pastelogo>
+        <img src=static/img/paste.png width=360 height=73>
+    </div>
 
     <div class="container well" id=main>
 [% content %]
