@@ -8,9 +8,12 @@
         [% PROCESS upload_form.tt %]
     </div>
     <div class="tab-pane fade in active" id=view>
-        <p><i class="icon-file"></i> [% paste.title || 'Untitled' %]</p>
-        <p style="color: #555;">Pasted on [% paste.ctime.ymd %]</p>
-        <p>Filename: [% paste.filename %] | <a href="[% c.uri_for( '/', id, 'download' ) %]">Download File</a> | Size: [% paste.filesize_text %] | Views: [% paste.views %]</p>
+        <p><i class="icon-file"></i> [% paste.title || 'Untitled' %] | <span style="color: #555;">Pasted on [% paste.ctime.strftime( '%B %d, %Y' ) %]</span></p>
+        <p>Share Link: <input type=text value="[% c.req.uri %]">
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="sixteencolors">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</p>
+        <p>Filename: [% paste.filename %] | <a href="[% c.uri_for( '/', id, 'download' ) %]"><i class="icon-download"></i> Download File</a> | Size: [% paste.filesize_text %] | Views: [% paste.views %]</p>
         <img src="[% c.uri_for( '/', id, 'render' ) %]?[% c.req.uri.query %]">
         <img id=thumb src="[% c.uri_for( '/', id, 'render' ) %]?thumbnail=on&amp;[% c.req.uri.query %]">
     </div>
