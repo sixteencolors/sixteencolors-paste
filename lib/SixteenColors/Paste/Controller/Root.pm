@@ -34,7 +34,7 @@ sub index : Path : Args(0) {
         return;
     }
 
-    my $recent = $c->model( 'DB::Paste' )->search( {}, { order_by => 'ctime DESC' } );
+    my $recent = $c->model( 'DB::Paste' )->search( {}, { order_by => \'ctime desc', rows => 10 } );
     $c->stash( recent => $recent );
 }
 
