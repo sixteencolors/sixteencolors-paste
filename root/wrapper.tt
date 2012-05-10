@@ -61,7 +61,7 @@ body, .navbar-search .search-query, .btn, p {
 }
 
 
-h1, h2, h3, h4, label {
+h1, h2, h3, h4, label, .close {
     font-weight: normal;
     font-size: 100%;
 }

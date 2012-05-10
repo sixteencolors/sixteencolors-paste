@@ -13,8 +13,16 @@ __PACKAGE__->config( namespace => '' );
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
+    my $recent = $c->model( 'DB::Paste' )->search( {}, { order_by => \'ctime desc', rows => 10 } );
+    $c->stash( recent => $recent );
+
     if ( lc( $c->req->method ) eq 'post' && $c->req->params->{ file } ) {
         my $upload = $c->req->upload( 'file' );
+
+        if( $upload->type && $upload->type =~ m{^image/} ) {
+            $c->stash( error => 'This service is for textmode images only.' );
+            return;
+        }
 
         my $paste = $c->model( 'DB::Paste' )->create( {
             filename => $upload->basename,
@@ -33,9 +41,6 @@ sub index : Path : Args(0) {
         );
         return;
     }
-
-    my $recent = $c->model( 'DB::Paste' )->search( {}, { order_by => \'ctime desc', rows => 10 } );
-    $c->stash( recent => $recent );
 }
 
 sub instance : Chained('/') PathPart('') CaptureArgs(1) {

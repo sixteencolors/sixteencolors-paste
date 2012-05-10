@@ -1,3 +1,10 @@
+[% IF error %]
+<div class="alert alert-error">
+  <a class="close" data-dismiss="alert" href="#">x</a>
+  <h4 class="alert-heading">Warning!</h4>
+  [% error %]
+</div>
+[% END %]
 <form class="form-vertical" action="/" method="post" enctype="multipart/form-data">
   <div class="control-group">
       <label class="control-label" for="file">File Path</label>
