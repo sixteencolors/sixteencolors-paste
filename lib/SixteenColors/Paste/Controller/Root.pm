@@ -33,6 +33,9 @@ sub index : Path : Args(0) {
         );
         return;
     }
+
+    my $recent = $c->model( 'DB::Paste' )->search( {}, { order_by => 'ctime DESC' } );
+    $c->stash( recent => $recent );
 }
 
 sub instance : Chained('/') PathPart('') CaptureArgs(1) {

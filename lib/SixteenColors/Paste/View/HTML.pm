@@ -4,11 +4,21 @@ use namespace::autoclean;
 
 extends 'Catalyst::View::TT';
 
+use Time::Duration ();
+
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     render_die         => 1,
     WRAPPER            => 'wrapper.tt',
+    expose_methods     => [ 'time_duration' ],
 );
+
+sub time_duration {
+    my ($self, $c, $dt) = @_;
+
+    my $dur = time() - $dt->epoch;
+    Time::Duration::ago( $dur, 1 );
+}
 
 =head1 NAME
 

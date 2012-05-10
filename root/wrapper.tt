@@ -92,10 +92,6 @@ h1, h2, h3, h4, label {
             box-shadow: none;
 }
 
-#main {
-    min-height: 200px;
-}
-
 .dropdown-menu, #top .navbar-inner, .btn, .search-query, .carousel-control {
     -webkit-border-radius: 0;
        -moz-border-radius: 0;
@@ -182,12 +178,33 @@ h1 a {
     vertical-align: top;
 }
 
+.nav-tabs {
+    position: relative;
+    top: -1px;
+    border: 0;
+    margin-bottom: 0;
+    margin-left: 16px;
+}
+
+.nav-tabs a {
+    border-bottom: 0;
+    background-color: whiteSmoke;
+}
+
+.nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee transparent;
+}
+
 .addthis_toolbox {
     display: inline-block;
     height: 20px;
     position: relative;
     top: 3px;
     left: 8px;
+}
+
+#recent li {
+    margin-bottom: 8px;
 }
     </style>
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
@@ -316,8 +333,10 @@ h1 a {
         <img src=static/img/paste.png width=360 height=73>
     </div>
 
-    <div class="container well" id=main>
+    <div class="container">
+        <div class="row">
 [% content %]
+        </div>
     </div>
 
     <div class="container" id=footer>

@@ -1,2 +1,6 @@
-<p>Your paste will stored at <a href="[% url %]">[% url %]</a></p>
-<p>You will be redirected shortly.</p>
+<div class="span12">
+    <div class="well">
+        <p>Your paste will stored at <a href="[% url %]">[% url %]</a></p>
+        <p>You will be redirected shortly.</p>
+    </div>
+</div>

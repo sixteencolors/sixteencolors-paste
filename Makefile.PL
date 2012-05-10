@@ -22,6 +22,7 @@ requires 'Encode::Base58';
 requires 'Image::TextMode';
 requires 'HTML::FillInForm';
 requires 'Number::Bytes::Human';
+requores 'Time::Duration';
 
 test_requires 'Test::More' => '0.88';
 catalyst;

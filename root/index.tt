@@ -1,8 +1,21 @@
-<ul class="nav nav-tabs">
-  <li class=active><a href="#upload" data-toggle="tab">Upload a new file</a></li>
+<div class="span9">
+    <ul class="nav nav-tabs">
+      <li class=active><a href="#upload" data-toggle="tab">Upload a new file</a></li>
+    </ul>
+    <div class="well">
+        <div class=tab-content>
+            <div class="tab-pane fade in active" id=upload>
+                [% PROCESS upload_form.tt %]
+            </div>
+        </div>
+    </div>
+</div>
+<div class="span3" style="margin-top: 35px;">
+    <div class="well">
+<ul class="unstyled" id=recent>
+    [% WHILE( item = recent.next ) %]
+    <li><i class="icon-file"></i> <a href="[% c.uri_for( '/', item.url_fragment ) %]">[% item.title || 'Untitled' %]</a><br/>Pasted [% time_duration( item.ctime ) %]</li>
+    [% END %]
 </ul>
-<div class=tab-content>
-    <div class="tab-pane fade in active" id=upload>
-        [% PROCESS upload_form.tt %]
     </div>
 </div>
